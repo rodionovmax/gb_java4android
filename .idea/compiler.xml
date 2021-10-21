@@ -7,6 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="java4android" />
+        <module name="gb_java4android" />
       </profile>
     </annotationProcessing>
   </component>
