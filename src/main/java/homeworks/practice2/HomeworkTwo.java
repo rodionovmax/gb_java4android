@@ -6,7 +6,7 @@ public class HomeworkTwo {
 
         System.out.println(methodOne(3, -197));
 
-        System.out.println(methodTwo(-12));
+        methodTwo(-12);
 
         System.out.println(methodThree(10));
 
@@ -24,16 +24,22 @@ public class HomeworkTwo {
         } else {
             return false;
         }
+        //return (a + b >= 10) && (a + b <= 20);
     }
 
     // Task 2.
-    private static String methodTwo(int a) {
+    private static void methodTwo(int a) {
         System.out.println("##### Output for Method Two #####");
-        if (a >= 0) {
-            return a + ": is positive";
-        } else {
-            return a + ": is negative";
-        }
+//        if (a >= 0) {
+//            return a + ": is positive";
+//        } else {
+//            return a + ": is negative";
+//        }
+
+        // Option 2. (condition) ? (true) : (false);
+        String strPattern = "Number " + a;
+        strPattern += (a >= 0) ? " positive" : " negative";
+        System.out.println(strPattern);
     }
 
     // Task 3.
@@ -57,11 +63,23 @@ public class HomeworkTwo {
     // Task 5.
     private static boolean isYearLeap(int year) {
         System.out.println("##### Output for Method Five #####");
-        if (year % 4 == 0) {
-            if (year % 100 == 0) {
-                return year % 400 == 0;
-            } else return true;
-        } else return false;
+//        if (year % 4 == 0) {
+//            if (year % 100 == 0) {
+//                return year % 400 == 0;
+//            } else return true;
+//        } else return false;
+
+        // Option 2.
+//        if (year % 400 == 0) {
+//            return true;
+//        }
+//        if (year % 100 == 0) {
+//            return false;
+//        }
+//        return year % 4 == 0;
+
+        // Option 3.
+        return year % 400 == 0 || (year % 4 == 0 && year % 100 != 0);
     }
 
 
