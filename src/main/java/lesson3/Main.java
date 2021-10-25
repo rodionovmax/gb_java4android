@@ -42,7 +42,7 @@ public class Main {
             data[i] = random.nextInt(); // -2147000000 -> +2147kk
             data[i] = random.nextInt(10); // 0-9
             data[i] = random.nextInt(8) + 3; // 3-10
-            data[i] = random.nextInt(12) -5; // -5-12
+            data[i] = random.nextInt(12) -5; // -5-6
 
             // Option 2. Using Math
             data[i] = (int)Math.random(); // 0-0
