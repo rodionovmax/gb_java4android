@@ -1,6 +1,5 @@
 package homeworks.practice3;
 
-import java.sql.Array;
 import java.util.Arrays;
 import java.util.Random;
 
@@ -21,7 +20,9 @@ public class HomeworkThree {
 
         findMinAndMaxInRandomArray();
 
-        checkBalance();
+        System.out.println(checkBalanceInArray(new int[]{2, 2, 2, 1, 2, 2, 10, 1}));
+        System.out.println(checkBalanceInArray(new int[]{1, 1, 1, 2, 1}));
+        System.out.println(checkBalanceInArray(new int[]{4, 10, 2, 5, 10}));
     }
 
     // Task 1.
@@ -128,15 +129,25 @@ public class HomeworkThree {
     }
 
     // Task 7.
-    private static void checkBalance() {
-        Random random = new Random();
-        // ARRAY_SIZE in range from 4 to 10
-        int ARRAY_SIZE = (int)(Math.random() * 7) + 4;
-        int[] arr = new int[ARRAY_SIZE];
-        // create an array with elements in range 1 to 10 and size ARRAY_SIZE
-        for (int i = 0; i < ARRAY_SIZE; i++) {
-            arr[i] = random.nextInt(10) + 1;
-        }
+    private static boolean checkBalanceInArray(int[] arr) {
         System.out.println("Array: " + Arrays.toString(arr));
+
+        int sumLeft = 0;
+        int sumRight = 0;
+        for (int i = 0; i < arr.length-1; i++) {
+            sumLeft += arr[i];
+            for (int j = i+1; j < arr.length; j++) {
+                sumRight += arr[j];
+            }
+            System.out.print(sumLeft + " || " + sumRight);
+            if(sumLeft == sumRight) {
+                System.out.print(" - Balance is found here!\n");
+                return true;
+            } else {
+                System.out.println();
+            }
+            sumRight = 0;
+        }
+        return false;
     }
 }
