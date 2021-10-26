@@ -23,6 +23,10 @@ public class HomeworkThree {
         System.out.println(checkBalanceInArray(new int[]{2, 2, 2, 1, 2, 2, 10, 1}));
         System.out.println(checkBalanceInArray(new int[]{1, 1, 1, 2, 1}));
         System.out.println(checkBalanceInArray(new int[]{4, 10, 2, 5, 10}));
+
+        shiftArray(new int[]{1, 2, 3}, 1);
+        shiftArray(new int[]{3, 5, 6, 1}, -2);
+        shiftArray(new int[]{3, 5, 6, 1}, 3);
     }
 
     // Task 1.
@@ -149,5 +153,31 @@ public class HomeworkThree {
             sumRight = 0;
         }
         return false;
+    }
+
+    // Task 8.
+    private static void shiftArray(int[] arr, int n) {
+        String str = "";
+        if (n > 0){
+            str = "(to the right)";
+        } else {
+            str = "(to the left)";
+        }
+
+        System.out.printf("Original array: %s should be shifted by %d %s\n",Arrays.toString(arr), n, str);
+
+        int[] shiftedArr = new int[arr.length];
+        for (int i = 0; i < arr.length; i++) {
+            int newPosition = i + n;
+            if (newPosition > arr.length - 1) {
+                shiftedArr[Math.abs(arr.length - newPosition)] = arr[i];
+            } else if (newPosition < 0) {
+                shiftedArr[arr.length - Math.abs(newPosition)] = arr[i];
+            }
+            else {
+                shiftedArr[newPosition] = arr[i];
+            }
+        }
+        System.out.println("Shifted array: " + Arrays.toString(shiftedArr));
     }
 }
