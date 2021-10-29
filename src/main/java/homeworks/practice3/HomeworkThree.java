@@ -27,6 +27,11 @@ public class HomeworkThree {
         shiftArray(new int[]{1, 2, 3}, 1);
         shiftArray(new int[]{3, 5, 6, 1}, -2);
         shiftArray(new int[]{3, 5, 6, 1}, 3);
+
+        shiftArrayVarTwo(new int[]{1, 2, 3}, 1);
+        shiftArrayVarTwo(new int[]{3, 5, 6, 1}, -2);
+        shiftArrayVarTwo(new int[]{3, 5, 6, 1}, 3);
+
     }
 
     // Task 1.
@@ -49,6 +54,8 @@ public class HomeworkThree {
             } else {
                 binaryArray[i] = 0;
             }
+            // Option 2. Using ternary operator
+//            binaryArray[i] = (binaryArray[i] == 1) ? 0 : 1;
         }
         System.out.println("Converted binary array: " + Arrays.toString(binaryArray));
     }
@@ -180,4 +187,36 @@ public class HomeworkThree {
         }
         System.out.println("Shifted array: " + Arrays.toString(shiftedArr));
     }
+
+    private static void shiftArrayVarTwo(int[] arr, int n) {
+        int shiftNumber = n % arr.length;
+        if (shiftNumber < 0) {
+            shiftLeft(arr, shiftNumber);
+        } else {
+            shiftRight(arr, shiftNumber);
+        }
+        System.out.println(Arrays.toString(arr) + "; shiftNumber = " + n);
+    }
+
+    private static void shiftLeft(int[] arr, int n) {
+        for (int i = 0; i < Math.abs(n); i++) {
+            int firstValue = arr[0];
+            for (int j = 0; j < arr.length - 1; j++) {
+                arr[j] = arr[j + 1];
+            }
+            arr[arr.length - 1] = firstValue;
+        }
+    }
+
+    private static void shiftRight(int[] arr, int n) {
+        for (int i = 0; i < n; i++) {
+            int lastValue = arr[arr.length - 1];
+            for (int j = arr.length - 1; j > 0; j--) {
+                arr[j] = arr[j - 1];
+            }
+            arr[0] = lastValue;
+        }
+    }
+
+
 }

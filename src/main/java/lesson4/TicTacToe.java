@@ -25,9 +25,18 @@ public class TicTacToe {
     }
 
     public static void turnGame() {
+        do {
+            System.out.println("\n\nThe game begins!");
+            init();
+            printMap();
+            playGame();
+        } while (isContinueGame());
+        endGame();
+    }
+
+    private static void init() {
         initMap();
-        printMap();
-        playGame();
+        turnsCount = 0;
     }
 
     private static void initMap() {
@@ -194,6 +203,18 @@ public class TicTacToe {
         return true;*/
 
         return turnsCount >= SIZE * SIZE;
+    }
+
+    private static boolean isContinueGame() {
+        System.out.print("Do you want to continue? y\\n ");
+        return switch (in.next()) {
+            case "y", "yes", "+", "da", "of course" -> true;
+            default -> false;
+        };
+    }
+
+    private static void endGame() {
+        System.out.println("Yo come back man. You know where to find me..");
     }
 
 }
