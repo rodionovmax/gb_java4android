@@ -5,7 +5,9 @@ import java.util.Scanner;
 
 public class Game {
 
-    private static final int SIZE = 3;
+    static Scanner in = new Scanner(System.in);
+
+    private static final int SIZE = getBoardSize();
 
     private static final char HUMAN = 'X';
     private static final char AI = 'O';
@@ -14,7 +16,6 @@ public class Game {
 
     private static final char[][] BOARD = new char[SIZE][SIZE];
 
-    static Scanner in = new Scanner(System.in);
     private static int playCounter;
 
     public static void main(String[] args) {
@@ -24,6 +25,7 @@ public class Game {
     private static void turnGameOn() {
         do {
             System.out.println("Let's the game begin \uD83D\uDCAB");
+            System.out.printf("You need to place %d symbols together to win the game\n", getN());
             init();
             printBoard();
             playGame();
@@ -73,7 +75,7 @@ public class Game {
     }
 
     private static int getBoardSize() {
-        System.out.println("Enter board size from 1 to 100: ");
+        System.out.print("Enter board size from 3 to 100: ");
 
         while (true) {
             if (in.hasNextInt()) {
@@ -92,7 +94,7 @@ public class Game {
     }
 
     private static boolean isBoardSizeValid(int n) {
-        return n > 0 && n <= 100;
+        return n >= 3  && n <= 100;
     }
 
     private static void playGame() {
@@ -138,31 +140,111 @@ public class Game {
     }
 
     private static boolean checkForWin(char symbol) {
-        if (BOARD[0][0] == symbol && BOARD[0][1] == symbol && BOARD[0][2] == symbol) {
+
+        int n = getN();
+
+        if (checkRow(symbol, n)) {
             return true;
         }
-        if (BOARD[1][0] == symbol && BOARD[1][1] == symbol && BOARD[1][2] == symbol) {
+        if (checkColumn(symbol, n)) {
             return true;
         }
-        if (BOARD[2][0] == symbol && BOARD[2][1] == symbol && BOARD[2][2] == symbol) {
+        /*
+        * checkDiagonal doesn't work properly. It works only when playing with board size equals 5
+        * Here is the error that I get when running the code with checkDiagonal()
+        * Exception in thread "main" java.lang.ArrayIndexOutOfBoundsException: Index 4 out of bounds for length 3
+        */
+//        if (checkDiagonal(symbol, n)) {
+//            return true;
+//        }
+        if (checkReverseDiagonal(symbol, n)) {
             return true;
+        }
+        return false;
+    }
+
+    private static int getN() {
+        // Get number of symbols which have to be placed together to win the game
+        int n;
+        if (SIZE >= 3 && SIZE <= 5) {
+            n = 3;
+        } else if (SIZE > 5 && SIZE <= 10) {
+            n = 4;
+        } else {
+            n = 5;
         }
 
-        if (BOARD[0][0] == symbol && BOARD[1][0] == symbol && BOARD[2][0] == symbol) {
-            return true;
-        }
-        if (BOARD[0][1] == symbol && BOARD[1][1] == symbol && BOARD[2][1] == symbol) {
-            return true;
-        }
-        if (BOARD[0][2] == symbol && BOARD[1][2] == symbol && BOARD[2][2] == symbol) {
-            return true;
-        }
+        return n;
+    }
 
-        if (BOARD[0][0] == symbol && BOARD[1][1] == symbol && BOARD[2][2] == symbol) {
-            return true;
+    private static boolean checkRow(char symbol, int n) {
+        int row = 0;
+        for (int x = 0; x < SIZE; x++) {
+            for (int y = 0; y < SIZE; y++) {
+                if (BOARD[x][y] == symbol) {
+                    row++;
+//                    System.out.println("Check for row: " + row);
+                    if (row == n) {
+                        return true;
+                    }
+                } else {
+                    row = 0;
+                }
+            }
         }
-        if (BOARD[0][2] == symbol && BOARD[1][1] == symbol && BOARD[2][0] == symbol) {
-            return true;
+        return false;
+    }
+
+    private static boolean checkColumn(char symbol, int n) {
+        int column = 0;
+        for (int x = 0; x < SIZE; x++) {
+            for (int y = 0; y < SIZE; y++) {
+                if (BOARD[y][x] == symbol) {
+                    column++;
+//                    System.out.println("Check for column: " + column);
+                    if (column == n) {
+                        return true;
+                    }
+                } else {
+                    column = 0;
+                }
+            }
+        }
+        return false;
+    }
+
+    private static boolean checkDiagonal(char symbol, int n) {
+        int diag = 0;
+        for (int x = 0; x < SIZE; x++) {
+            for (int y = 0; y < SIZE; y++) {
+                if (BOARD[y][n - y + 1] == symbol) {
+                    diag++;
+//                    System.out.println("Check for diagonal: " + diag);
+                    if (diag == n) {
+                        return true;
+                    }
+                } else {
+                    diag = 0;
+                }
+            }
+        }
+        return false;
+    }
+
+    private static boolean checkReverseDiagonal(char symbol, int n) {
+        int reverseDiag = 0;
+        for (int x = 0; x < SIZE; x++) {
+            for (int y = 0; y < SIZE; y++) {
+                if (BOARD[y][y] == symbol) {
+                    reverseDiag++;
+//                    System.out.println("Check for reverse diagonal: " + reverseDiag);
+                    if (reverseDiag == n) {
+                        return true;
+                    }
+                } else {
+                    reverseDiag = 0;
+                }
+            }
         }
         return false;
     }
@@ -238,9 +320,6 @@ public class Game {
     private static void endGame() {
         System.out.println("Game is over ☃. Bye-bye!");
     }
-
-
-
 
 }
 
