@@ -99,21 +99,21 @@ public class Game {
 
     private static void playGame() {
         while (true) {
-            playHuman();
+            int[] lastHumanMove = playHuman();
             printBoard();
-            if (checkForEnd(HUMAN)) {
+            if (checkForEnd(HUMAN, lastHumanMove)) {
                 break;
             }
-            playAI();
+            int[] lastAIMove = playAI();
             printBoard();
-            if (checkForEnd(AI)) {
+            if (checkForEnd(AI, lastAIMove)) {
                 break;
             }
         }
     }
 
-    private static boolean checkForEnd(char symbol) {
-        if (checkForWin(symbol)) {
+    private static boolean checkForEnd(char symbol, int[] lastMove) {
+        if (checkForWin(symbol, lastMove)) {
             if (symbol == HUMAN) {
                 System.out.println("Congrats dude, you won!");
             } else {
@@ -139,25 +139,23 @@ public class Game {
         return true;
     }
 
-    private static boolean checkForWin(char symbol) {
+    private static boolean checkForWin(char symbol, int[] lastMove) {
 
         int n = getN();
 
-        if (checkRow(symbol, n)) {
+        if (checkRow(symbol, n, lastMove)) {
             return true;
         }
-        if (checkColumn(symbol, n)) {
+        if (checkColumn(symbol, n, lastMove)) {
             return true;
         }
         /*
-        * checkDiagonal doesn't work properly. It works only when playing with board size equals 5
-        * Here is the error that I get when running the code with checkDiagonal()
-        * Exception in thread "main" java.lang.ArrayIndexOutOfBoundsException: Index 4 out of bounds for length 3
+        * Note: checkDiagonal() and checkReverseDiagonal() work only with diagonals coming from the corners
         */
-//        if (checkDiagonal(symbol, n)) {
-//            return true;
-//        }
-        if (checkReverseDiagonal(symbol, n)) {
+        if (checkDiagonal(symbol, n, lastMove)) {
+            return true;
+        }
+        if (checkReverseDiagonal(symbol, n, lastMove)) {
             return true;
         }
         return false;
@@ -177,49 +175,51 @@ public class Game {
         return n;
     }
 
-    private static boolean checkRow(char symbol, int n) {
+    private static boolean checkRow(char symbol, int n, int[] lastMove) {
         int row = 0;
-        for (int x = 0; x < SIZE; x++) {
-            for (int y = 0; y < SIZE; y++) {
-                if (BOARD[x][y] == symbol) {
-                    row++;
-//                    System.out.println("Check for row: " + row);
-                    if (row == n) {
-                        return true;
-                    }
-                } else {
-                    row = 0;
+        int x = lastMove[1];
+        int y = lastMove[0];
+        for (int i = 0; i < SIZE; i++) {
+            if (BOARD[y][i] == symbol) {
+                row++;
+//                System.out.println("Check for row: " + row);
+                if (row == n) {
+                    return true;
                 }
+            } else {
+                row = 0;
             }
         }
         return false;
     }
 
-    private static boolean checkColumn(char symbol, int n) {
+    private static boolean checkColumn(char symbol, int n, int[] lastMove) {
         int column = 0;
-        for (int x = 0; x < SIZE; x++) {
-            for (int y = 0; y < SIZE; y++) {
-                if (BOARD[y][x] == symbol) {
-                    column++;
-//                    System.out.println("Check for column: " + column);
-                    if (column == n) {
-                        return true;
-                    }
-                } else {
-                    column = 0;
+        int x = lastMove[1];
+        int y = lastMove[0];
+        for (int i = 0; i < SIZE; i++) {
+            if (BOARD[i][x] == symbol) {
+                column++;
+//                System.out.println("Check for COLUMN: " + column);
+                if (column == n) {
+                    return true;
                 }
+            } else {
+                column = 0;
             }
         }
         return false;
     }
 
-    private static boolean checkDiagonal(char symbol, int n) {
+    private static boolean checkDiagonal(char symbol, int n, int[] lastMove) {
         int diag = 0;
-        for (int x = 0; x < SIZE; x++) {
-            for (int y = 0; y < SIZE; y++) {
-                if (BOARD[y][n - y + 1] == symbol) {
+        int x = lastMove[1];
+        int y = lastMove[0];
+        for (int i = 0; i < SIZE; i++) {
+            if (x == y) {
+                if (BOARD[i][i] == symbol) {
                     diag++;
-//                    System.out.println("Check for diagonal: " + diag);
+//                    System.out.println("Check for diag: " + diag);
                     if (diag == n) {
                         return true;
                     }
@@ -231,13 +231,15 @@ public class Game {
         return false;
     }
 
-    private static boolean checkReverseDiagonal(char symbol, int n) {
+    private static boolean checkReverseDiagonal(char symbol, int n, int[] lastMove) {
         int reverseDiag = 0;
-        for (int x = 0; x < SIZE; x++) {
-            for (int y = 0; y < SIZE; y++) {
-                if (BOARD[y][y] == symbol) {
+        int x = lastMove[1];
+        int y = lastMove[0];
+        for (int i = 0; i < SIZE; i++) {
+            if (x + y == SIZE - 1) {
+                if (BOARD[i][(SIZE - 1) - i] == symbol) {
                     reverseDiag++;
-//                    System.out.println("Check for reverse diagonal: " + reverseDiag);
+//                    System.out.println("Check for reverse diag: " + reverseDiag);
                     if (reverseDiag == n) {
                         return true;
                     }
@@ -249,7 +251,7 @@ public class Game {
         return false;
     }
 
-    private static void playHuman() {
+    private static int[] playHuman() {
         System.out.println("It's your turn dude");
         int x, y;
         while (true) {
@@ -266,6 +268,7 @@ public class Game {
         BOARD[y][x] = HUMAN;
         playCounter++;
         System.out.println("You played!");
+        return new int[] {y, x};
     }
 
     private static boolean isCellFree(int x, int y) {
@@ -294,7 +297,7 @@ public class Game {
         return n > 0 && n <= SIZE;
     }
 
-    private static void playAI() {
+    private static int[] playAI() {
         int x, y;
         while (true) {
             Random random = new Random();
@@ -307,6 +310,7 @@ public class Game {
         BOARD[y][x] = AI;
         playCounter++;
         System.out.println("Computer played!");
+        return new int[] {y, x};
     }
 
     private static boolean isContinueGame() {
