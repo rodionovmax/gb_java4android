@@ -2,6 +2,12 @@ package homeworks.practice6;
 
 public class Dog extends Animal {
 
+    static int count;
+
+    {
+        count += 1;
+    }
+
     public Dog(int distance) {
         super(distance, 500, 10);
     }

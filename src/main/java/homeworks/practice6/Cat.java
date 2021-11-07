@@ -2,6 +2,12 @@ package homeworks.practice6;
 
 public class Cat extends Animal {
 
+    static int count;
+
+    {
+        count += 1;
+    }
+
     public Cat(int distance) {
         super(distance, 200, 0);
     }
@@ -16,6 +22,12 @@ public class Cat extends Animal {
     public boolean swim() {
         System.out.print("Cat: ");
         return super.swim();
+    }
+
+    @Override
+    public void setSwimLimit(int swimLimit) {
+        System.out.println("Cats can't swim");
+        super.setSwimLimit(0);
     }
 }
 

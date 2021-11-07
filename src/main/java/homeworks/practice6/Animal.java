@@ -3,8 +3,13 @@ package homeworks.practice6;
 public class Animal {
 
     private final int distance;
-    private final int runLimit;
-    private final int swimLimit;
+    private int runLimit;
+    private int swimLimit;
+    static int count;
+
+    {
+        count += 1;
+    }
 
     public Animal(int distance, int runLimit, int swimLimit) {
         this.distance = distance;
@@ -41,6 +46,15 @@ public class Animal {
     public int getSwimLimit() {
         return swimLimit;
     }
+
+    public void setRunLimit(int runLimit) {
+        this.runLimit = runLimit;
+    }
+
+    public void setSwimLimit(int swimLimit) {
+        this.swimLimit = swimLimit;
+    }
+
 
 }
 
