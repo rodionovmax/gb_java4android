@@ -33,19 +33,25 @@ public class Team {
     public void printInfo() {
         int allPoints = 0;
         String lineup = "";
+        StringBuilder sb = new StringBuilder();
 
         for (int i = 0; i < playersCount; i++) {
             Player player = players[i];
             allPoints += player.getPoints();
 
-            lineup += String.format(
+//            lineup += String.format(
+//                    "%s(lvl: %d, money: %d)",
+//                    player.getNickname(), player.getLevel(), player.getMoney()
+//            );
+            sb.append(String.format(
                     "%s(lvl: %d, money: %d)",
-                    player.getNickname(), player.getLevel(), player.getMoney()
-            );
+                    player.getNickname(), player.getLevel(), player.getMoney()));
             if (i != playersCount - 1) {
-                lineup += ", ";
+//                lineup += ", ";
+                sb.append(", ");
             } else {
-                lineup += ".";
+//                lineup += ".";
+                sb.append(".");
             }
         }
 
