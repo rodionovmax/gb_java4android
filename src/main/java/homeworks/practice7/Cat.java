@@ -12,7 +12,7 @@ public class Cat {
     }
 
     public int eat(Plate plate) {
-        int catEatFoodCount = random.nextInt(4) + 1;
+        int catEatFoodCount = random.nextInt(5) + 1;
         if (plate.getFoodCount() >= catEatFoodCount) {
             plate.decreaseFood(catEatFoodCount);
             fullness = true;

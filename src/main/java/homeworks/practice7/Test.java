@@ -4,6 +4,7 @@ public class Test {
 
     public static void main(String[] args) throws InterruptedException {
         int SIZE = 5;
+        int fedCatsCounter = 0;
 
         Cat[] cats = new Cat[SIZE];
         cats[0] = new Cat("Barsik");
@@ -14,8 +15,7 @@ public class Test {
         Plate plate = new Plate(10);
 
         plate.printInfo();
-        
-        int fedCatsCounter = 0;
+
         while (plate.getFoodCount() > 0) {
             for (Cat cat : cats) {
                 if (!cat.isFullness()) {
@@ -25,8 +25,17 @@ public class Test {
                     Thread.sleep(2000);
                 }
             }
-//            System.out.println(fullCatsCounter);
-            if (fedCatsCounter == SIZE) {
+
+// Task 5. To have unfed cats uncomment this code and comment lines 35-40
+//            if (fedCatsCounter == SIZE) {
+//                System.out.println("All cats are fed");
+//                break;
+//            }
+
+            // Task 6.
+            if (fedCatsCounter != SIZE) {
+                plate.addPortions();
+            } else {
                 System.out.println("All cats are fed");
                 break;
             }
