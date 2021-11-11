@@ -1,4 +1,4 @@
-package lesson7;
+package lesson7.oop_hw_base;
 
 public class Plate {
     private int foodCount;
@@ -17,5 +17,9 @@ public class Plate {
 
     public int getFoodCount() {
         return foodCount;
+    }
+
+    public void addFoodCount(int foodCount) {
+        this.foodCount += foodCount;
     }
 }
