@@ -4,9 +4,56 @@ import java.io.Serializable;
 
 public class Cat {
 
-    private String name;
     private Color color;
-    private int age;
+    private Male male;
+    private CatAttributes catAttributes;
+
+    private enum Male {
+        MALE, FEMALE
+    }
+
+    private class CatAttributes {
+        private String name;
+        private final int age;
+        private int weight;
+        private boolean male;
+
+        public CatAttributes(String name, int age, int weight) {
+            this.name = name;
+            this.age = age;
+            this.weight = weight;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public int getAge() {
+            return age;
+        }
+
+        public int getWeight() {
+            return weight;
+        }
+
+        public void setWeight(int weight) {
+            this.weight = weight;
+        }
+
+        @Override
+        public String toString() {
+            return "CatArguments{" +
+                    Cat.this.male + male +
+                    "name='" + name + '\'' +
+                    ", age=" + age +
+                    ", weight=" + weight +
+                    '}';
+        }
+    }
 
     static class StaticNestedClass {
 
@@ -17,9 +64,16 @@ public class Cat {
     }
 
     public Cat(String name, Color color, int age) {
-        this.name = name;
         this.color = color;
-        this.age = age;
+    }
+
+    public Cat(String name, Color color, int age, int weight) {
+        this.color = color;
+        catAttributes = new CatAttributes(name, age, weight);
+    }
+
+    public Cat(Color color) {
+        this.color = color;
     }
 
     public Color getColor() {
@@ -36,9 +90,7 @@ public class Cat {
     @Override
     public String toString() {
         return "Cat{" +
-                "name='" + name + '\'' +
-                ", color='" + color.getRussianColor() + '\'' +
-                ", age=" + age +
+                "color=" + color + " " + catAttributes +
                 '}';
     }
 }
