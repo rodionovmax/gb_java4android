@@ -81,7 +81,7 @@ public class Box<T extends Fruit> {
         int fruitsInAnotherBox = anotherBox.countFruits();
 
         for (int i = 0; i < fruitsInBox; i++) {
-            if ((fruitsInBox + fruitsInAnotherBox) < STANDARD_BOX) {
+            if ((fruitsInBox + fruitsInAnotherBox) < box.length) {
                 anotherBox.add(box[i], i + fruitsInAnotherBox); // add fruits to the new box
                 remove(i); // remove fruits from the old box
             } else {
