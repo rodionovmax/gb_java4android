@@ -29,7 +29,6 @@ public class CountWordsInArray {
 
         System.out.println("Unique words: " + uniqueKeys);
         System.out.println("Occurrence of each unique word: " + keyCounter);
-        
     }
 
 
