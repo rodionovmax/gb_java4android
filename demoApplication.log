@@ -1,0 +1,4 @@
+[main] INFO  admin  - info
+[main] WARN  admin  - w
+[main] INFO  file  - info
+[main] WARN  file  - w

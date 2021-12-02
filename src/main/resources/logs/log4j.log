@@ -1,0 +1,6 @@
+2021-08-16 21:05:08 INFO   file:16 - info
+2021-08-16 21:05:08 WARN   file:17 - warning
+2021-08-16 21:05:08 ERROR  file:18 - error
+2021-08-16 21:05:08 FATAL  file:19 - fatal
+2021-11-30 20:52:04 INFO   file:17 - info
+2021-11-30 20:52:04 WARN   file:18 - wa

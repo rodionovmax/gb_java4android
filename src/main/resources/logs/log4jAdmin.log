@@ -1,0 +1,6 @@
+2021-08-16 21:05:08 INFO   admin:10 - info
+2021-08-16 21:05:08 WARN   admin:11 - warning
+2021-08-16 21:05:08 ERROR  admin:12 - error
+2021-08-16 21:05:08 FATAL  admin:13 - fatal
+2021-11-30 20:52:04 INFO   admin:12 - info
+2021-11-30 20:52:04 WARN   admin:13 - w
