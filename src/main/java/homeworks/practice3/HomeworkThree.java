@@ -7,7 +7,6 @@ public class HomeworkThree {
     public static void main(String[] args) {
 
         HomeworkThree hm3 = new HomeworkThree();
-
         int[] arr = createBinaryArray();
         convertBinaryArray(arr);
 
