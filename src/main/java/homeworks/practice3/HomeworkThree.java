@@ -6,6 +6,7 @@ import java.util.Random;
 public class HomeworkThree {
     public static void main(String[] args) {
 
+        HomeworkThree hm3 = new HomeworkThree();
         int[] arr = createBinaryArray();
         convertBinaryArray(arr);
 
@@ -20,17 +21,17 @@ public class HomeworkThree {
 
         findMinAndMaxInRandomArray();
 
-        System.out.println(checkBalanceInArray(new int[]{2, 2, 2, 1, 2, 2, 10, 1}));
-        System.out.println(checkBalanceInArray(new int[]{1, 1, 1, 2, 1}));
-        System.out.println(checkBalanceInArray(new int[]{4, 10, 2, 5, 10}));
+        System.out.println(hm3.checkBalanceInArray(new int[]{2, 2, 2, 1, 2, 2, 10, 1}));
+        System.out.println(hm3.checkBalanceInArray(new int[]{1, 1, 1, 2, 1}));
+        System.out.println(hm3.checkBalanceInArray(new int[]{4, 10, 2, 5, 10}));
 
-        shiftArray(new int[]{1, 2, 3}, 1);
-        shiftArray(new int[]{3, 5, 6, 1}, -2);
-        shiftArray(new int[]{3, 5, 6, 1}, 3);
+        hm3.shiftArray(new int[]{1, 2, 3}, 1);
+        hm3.shiftArray(new int[]{3, 5, 6, 1}, -2);
+        hm3.shiftArray(new int[]{3, 5, 6, 1}, 3);
 
-        shiftArrayVarTwo(new int[]{1, 2, 3}, 1);
-        shiftArrayVarTwo(new int[]{3, 5, 6, 1}, -2);
-        shiftArrayVarTwo(new int[]{3, 5, 6, 1}, 3);
+        hm3.shiftArrayVarTwo(new int[]{1, 2, 3}, 1);
+        hm3.shiftArrayVarTwo(new int[]{3, 5, 6, 1}, -2);
+        hm3.shiftArrayVarTwo(new int[]{3, 5, 6, 1}, 3);
 
     }
 
@@ -140,7 +141,7 @@ public class HomeworkThree {
     }
 
     // Task 7.
-    private static boolean checkBalanceInArray(int[] arr) {
+    public boolean checkBalanceInArray(int[] arr) {
         System.out.println("Array: " + Arrays.toString(arr));
 
         int sumLeft = 0;
@@ -163,7 +164,7 @@ public class HomeworkThree {
     }
 
     // Task 8.
-    private static void shiftArray(int[] arr, int n) {
+    public int[] shiftArray(int[] arr, int n) {
         String str = "";
         if (n > 0){
             str = "(to the right)";
@@ -186,9 +187,10 @@ public class HomeworkThree {
             }
         }
         System.out.println("Shifted array: " + Arrays.toString(shiftedArr));
+        return shiftedArr;
     }
 
-    private static void shiftArrayVarTwo(int[] arr, int n) {
+    public int[] shiftArrayVarTwo(int[] arr, int n) {
         int shiftNumber = n % arr.length;
         if (shiftNumber < 0) {
             shiftLeft(arr, shiftNumber);
@@ -196,9 +198,10 @@ public class HomeworkThree {
             shiftRight(arr, shiftNumber);
         }
         System.out.println(Arrays.toString(arr) + "; shiftNumber = " + n);
+        return arr;
     }
 
-    private static void shiftLeft(int[] arr, int n) {
+    private void shiftLeft(int[] arr, int n) {
         for (int i = 0; i < Math.abs(n); i++) {
             int firstValue = arr[0];
             for (int j = 0; j < arr.length - 1; j++) {
@@ -208,7 +211,7 @@ public class HomeworkThree {
         }
     }
 
-    private static void shiftRight(int[] arr, int n) {
+    private void shiftRight(int[] arr, int n) {
         for (int i = 0; i < n; i++) {
             int lastValue = arr[arr.length - 1];
             for (int j = arr.length - 1; j > 0; j--) {
